@@ -59,7 +59,7 @@ We also release our pretrained models; download from the following path:
 
 First you need a `config` file for your training configuration.
 Check the `experiment_configs/` directory for example configurations.
-Important options are:
+Important options (you can specify them with environment variables) are:
 
 ```
   "train_data_path":  # path to training data,
