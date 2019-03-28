@@ -1,9 +1,10 @@
-# `SciCite`
+# <p align=center>`SciCite`</p> 
 
 This repository contains datasets and code for classifying citation intents in academic papers.  
-For details on the model and data refer to our NAACL 2019 paper: ["Structural Scaffolds for Citation Intent Classification in Scientific Publications"](https://arxiv.org/).
+For details on the model and data refer to our NAACL 2019 paper:
+["Structural Scaffolds for Citation Intent Classification in Scientific Publications"](https://arxiv.org/).
 
-### Data
+## Data
 
 We introduce `SciCite` a new large dataset of citation intents.
 You can download the data from:  
@@ -11,13 +12,13 @@ You can download the data from:
 * __[`SciCite`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/scicite/scicite.tar.gz)__
 
 We also run experiments on the ACL-ARC Citations dataset introduced by [Jurgens et al., (2018)](https://transacl.org/ojs/index.php/tacl/article/view/1266).
-The pre-processed dataset is available at:
+The preprocessed dataset is available at:
 
 * __[`ACL-ARC`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/acl-arc/acl-arc.tar.gz)__
 
 The format of the datasets are identical and in Jsonlines format (each line is a json object).
 
-### Setup
+## Setup
 
 The project needs Python 3.6 and is based on the [AllenNLP](https://github.com/allenai/allennlp) library.
 
@@ -35,11 +36,16 @@ python citation_intent/run_model.py predict saved-model/elmo_model.tar.gz data/s
 
 
 
-### Running a pre-trained model on your own data
+## Running a pre-trained model on your own data
 
 Download one of the pre-trained models and run the following command:
 
-`allennlp predict [path-to-data.jsonl] [path-to-model.tar.gz] --predictor predictor_aclarc --include-package scicite  --output-file [out-path.jsonl]`
+```bash
+allennlp predict [path-to-data.jsonl] [path-to-model.tar.gz] \
+--predictor predictor_aclarc \
+--include-package scicite \
+--output-file [out-path.jsonl]
+```
 
 Where 
 * `[path-to-data.jsonl]` contains the data in the same format as the training data.
@@ -48,29 +54,29 @@ Where
 
 #### Pretrained models
 
-Download from the following path:
+We also release our pretrained models; download from the following path:
 
 * __[`SciCite`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/scicite/models/scicite.tar.gz)__
 * __[`ACL-ARC`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/scicite/models/aclarc.tar.gz)__
 
-### Training your own models
+## Training your own models
 
 First you need a `config` file for your training configuration.
-Check the `experiment_configs directory/` for example configurations.
+Check the `experiment_configs/` directory for example configurations.
 Important options are:
 
 ```
   "train_data_path":  # path to training data,
   "validation_data_path":  #path to development data,
-  "test_data_path":  #path to test data,
+  "test_data_path":  # path to test data,
   "train_data_path_aux": # path to the data for section title scaffold,
   "train_data_path_aux2": # path to the data for citation worthiness scaffold,
-  "mixing_ratio": parameter \lambda_1 in the paper (sensitivity of loss to the first scaffold)
-  "mixing_ratio2": parameter \lambda_2 in the paper (sensitivity of loss to the second scaffold)
+  "mixing_ratio": # parameter \lambda_1 in the paper (sensitivity of loss to the first scaffold)
+  "mixing_ratio2": # parameter \lambda_2 in the paper (sensitivity of loss to the second scaffold)
 ``` 
 
 After downloading the data, edit the configuration file with the correct paths.
-You also need to pass in an environment variable specifying whether to use `[ELMO](https://allennlp.org/elmo)` or not.
+You also need to pass in an environment variable specifying whether to use [ELMo](https://allennlp.org/elmo) contextualized embeddings.
 
 `export elmo=true`
 
@@ -88,7 +94,7 @@ Where the model output and logs will be stored in `[path-to-serialization-dir/]`
 
 ## Citing
 
-Please cite our NAACL 2019 paper:
+If you found our dataset, or code useful, please cite our NAACL 2019 paper:
 
 ```
 @InProceedings{Cohan2019Structural,
