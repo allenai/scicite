@@ -32,10 +32,6 @@ Use pip to install dependencies in your desired python environment
 
 `./setup_env.sh`
 
-python citation_intent/run_model.py predict saved-model/elmo_model.tar.gz data/s2/v2/v03-nested/crowd_test.jsonl --output-file /tmp/predict-out-crowd_test-elmo2.txt --include-package citation_intent --predictor citation_classifier --cuda-device 0 --overrides "{model: {predict_mode:true}, dataset_reader: {reader_format: 'nested'}}"
-
-
-
 ## Running a pre-trained model on your own data
 
 Download one of the pre-trained models and run the following command:
