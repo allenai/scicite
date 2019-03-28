@@ -1,0 +1,124 @@
+local DIM =
+  if std.extVar("elmo")) then
+    1124
+  else:
+    100;
+{
+  "random_seed": std.extVar("SEED"),
+  "pytorch_seed": std.extVar("PYTORCH_SEED"),
+  "numpy_seed": std.extVar("NUMPY_SEED"),
+  "mixing_ratio": 0.06,
+  "mixing_ratio2": 0.21,
+  "dataset_reader": {
+    "type": "aclarc_dataset_reader",
+    "use_sparse_lexicon_features": false,
+    "with_elmo": std.extVar("elmo")
+  },
+  "dataset_reader_aux": {
+    "type": "aclarc_section_title_data_reader",
+    "with_elmo": std.extVar("elmo")
+  },
+    "dataset_reader_aux2": {
+    "type": "aclarc_cite_worthiness_data_reader",
+     "with_elmo": std.extVar("elmo")
+  },
+  "train_data_path_aux": "data/cite-sections.jsonl",
+  "train_data_path_aux2": "data/cite-worthiness.jsonl",
+  "train_data_path": "data/train.jsonl",
+  "validation_data_path": "data/dev.jsonl",
+  "test_data_path": "data/test.jsonl",
+  "evaluate_on_test": true,
+  "model": {
+    "data_format": "jurgens",
+    "with_elmo": std.extVar("elmo"),
+    "use_sparse_lexicon_features": false,
+    "type": "scaffold_bilstm_attention_classifier",
+    "use_lexicon_features": false,
+    "report_auxiliary_metrics": true,
+    "multilabel": false,
+    "text_field_embedder": {
+      "tokens": {
+        "type": "embedding",
+        "pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz",
+        "embedding_dim": 100,
+        "trainable": false
+      }
+    },
+    "elmo_text_field_embedder": {
+      "tokens": {
+        "type": "embedding",
+        "pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz",
+        "embedding_dim": 100,
+        "trainable": false
+      },
+      "elmo": {
+        "type": "elmo_token_embedder",
+        "options_file": "elmo/elmo_2x4096_512_2048cnn_2xhighway_options.json",
+        "weight_file": "elmo/nfs.corp/s2-research/elmo-weights/elmo_2x4096_512_2048cnn_2xhighway_weights_PubMed_only.hdf5",
+        "do_layer_norm": true,
+        "dropout": 0.5
+      }
+    },
+      "lexicon_embedder": {
+        "pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz",
+        "embedding_dim": 100,
+        "trainable": false,
+        "vocab_namespace": "lexicon_ids"
+    }
+    ,
+      "citation_text_encoder": {
+      "type": "gru",
+      "bidirectional": true,
+      "input_size": DIM,
+      "hidden_size": 50,
+      "num_layers": 1
+    },
+    "classifier_feedforward": {
+      "input_dim": 100,
+      "num_layers": 2,
+      "hidden_dims": [20, 6],
+      "activations": ["relu", "linear"],
+      "dropout": [0.0, 0.0]
+    },
+    "classifier_feedforward_2": {
+      "input_dim": 100,
+      "num_layers": 2,
+      "hidden_dims": [20, 5],
+      "activations": ["relu", "linear"],
+      "dropout": [0.0, 0.0]
+    },
+    "classifier_feedforward_3": {
+      "input_dim": 100,
+      "num_layers": 2,
+      "hidden_dims": [20, 2],
+      "activations": ["relu", "linear"],
+      "dropout": [0.0, 0.0]
+    }
+  },
+  "iterator": {
+    "type": "bucket",
+    "sorting_keys": [["citation_text", "num_tokens"]],
+    "batch_size": 8
+  },
+  "iterator_aux": {
+    "type": "bucket",
+    "sorting_keys": [["citation_text", "num_tokens"]],
+    "batch_size": 8
+  },
+  "iterator_aux2": {
+    "type": "bucket",
+    "sorting_keys": [["citation_text", "num_tokens"]],
+    "batch_size": 8
+  },
+  "trainer": {
+    "num_epochs": 5,
+    "grad_clipping": 5.0,
+    "patience": 10,
+    "validation_metric": "+average_F1",
+    "cuda_device": 0,
+    "optimizer": {
+      "type": "adadelta",
+      "rho": 0.95
+    }
+  }
+}

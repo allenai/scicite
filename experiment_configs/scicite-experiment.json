@@ -1,0 +1,127 @@
+local DIM =
+  if std.extVar("elmo")) then
+    1224
+  else:
+    200;
+{
+  "random_seed": std.extVar("SEED"),
+  "pytorch_seed": std.extVar("PYTORCH_SEED"),
+  "numpy_seed": std.extVar("NUMPY_SEED"),
+  "mixing_ratio": std.extVar("mixing_ratio"),
+  "mixing_ratio2": std.extVar("mixing_ratio2"),
+  "dataset_reader": {
+    "type": "scicite_datasetreader",
+    "use_sparse_lexicon_features": false,
+    "multilabel": false,
+    "with_elmo": std.extVar("elmo")
+  },
+  "dataset_reader_aux": {
+    "type": "scicite_section_title_data_reader",
+    "with_elmo": std.extVar("elmo")
+  },
+    "dataset_reader_aux2": {
+    "type": "scicite_cite_worthiness_data_reader",
+      "with_elmo": std.extVar("elmo")
+  },
+  "train_data_path_aux": "data/cite-sections.jsonl",
+  "train_data_path_aux2": "data/cite-worthiness.jsonl",
+  "train_data_path": "data/train.jsonl",
+  "validation_data_path": "data/dev.jsonl",
+  "test_data_path": "data/test.jsonl",
+  "evaluate_on_test": true,
+  "evaluate_aux_on_test": true,
+  "model": {
+    "with_elmo": std.extVar("elmo"),
+    "data_format": "scicite_flat_jsonlines",
+    "use_sparse_lexicon_features": false,
+    "type": "scaffold_bilstm_attention_classifier",
+    "use_lexicon_features": false,
+    "report_auxiliary_metrics": true,
+    "multilabel": false,
+    "text_field_embedder": {
+      "tokens": {
+        "type": "embedding",
+        "pretrained_file": std.extVar("pretrained_file"),
+        "embedding_dim": 100,
+        "trainable": false
+      }
+    },
+    "elmo_text_field_embedder": {
+      "tokens": {
+        "type": "embedding",
+        "pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz",
+        "embedding_dim": 100,
+        "trainable": false
+      },
+      "elmo": {
+        "type": "elmo_token_embedder",
+        "options_file": "/net/nfs.corp/s2-research/elmo-weights/elmo_2x4096_512_2048cnn_2xhighway_options.json",
+        "weight_file": "/net/nfs.corp/s2-research/elmo-weights/elmo_2x4096_512_2048cnn_2xhighway_weights_PubMed_only.hdf5",
+        "do_layer_norm": true,
+        "dropout": 0.5
+      }
+    },
+      "lexicon_embedder": {
+        "pretrained_file": std.extVar("pretrained_file"),
+        "embedding_dim": 100,
+        "trainable": false,
+        "vocab_namespace": "lexicon_ids"
+    }
+    ,
+    "citation_text_encoder": {
+      "type": "gru",
+      "bidirectional": true,
+      "input_size": DIM,
+      "hidden_size": 100,
+      "num_layers": 2,
+      "dropout": 0.3
+    },
+    "classifier_feedforward": {
+      "input_dim": 200,
+      "num_layers": 2,
+      "hidden_dims": [20, 3],
+      "activations": ["linear", "linear"],
+      "dropout": [0.0, 0.0]
+    },
+    "classifier_feedforward_2": {
+      "input_dim": 200,
+      "num_layers": 2,
+      "hidden_dims": [20, 5],
+      "activations": ["linear", "linear"],
+      "dropout": [0.0, 0.0]
+    },
+    "classifier_feedforward_3": {
+      "input_dim": 200,
+      "num_layers": 2,
+      "hidden_dims": [20, 2],
+      "activations": ["linear", "linear"],
+      "dropout": [0.0, 0.0]
+    }
+  },
+  "iterator": {
+    "type": "bucket",
+    "sorting_keys": [["citation_text", "num_tokens"]],
+    "batch_size": 16
+  },
+  "iterator_aux": {
+    "type": "bucket",
+    "sorting_keys": [["citation_text", "num_tokens"]],
+    "batch_size": 16
+  },
+  "iterator_aux2": {
+    "type": "bucket",
+    "sorting_keys": [["citation_text", "num_tokens"]],
+    "batch_size": 16
+  },
+  "trainer": {
+    "num_epochs": 10,
+    "grad_clipping": 5.0,
+    "patience": 4,
+    "validation_metric": "+average_F1", //"-loss",
+    "cuda_device": 1,
+    "optimizer": {
+      "type": "adadelta",
+      "rho": 0.95
+    }
+  }
+}

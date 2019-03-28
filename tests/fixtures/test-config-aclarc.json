@@ -1,0 +1,80 @@
+{
+  "mixing_ratio": 0.1,
+  "mixing_ratio2": 0.1,
+  "dataset_reader": {
+    "type": "aclarc_dataset_reader",
+    "use_sparse_lexicon_features": false,
+  },
+  "dataset_reader_aux": {
+    "type": "aclarc_section_title_data_reader"
+  },
+    "dataset_reader_aux2": {
+    "type": "aclarc_cite_worthiness_data_reader"
+  },
+  "train_data_path_aux": "tests/fixtures/aclarc-section-title.jsonl",
+  "train_data_path_aux2": "tests/fixtures/aclarc-cite-worthiness.jsonl",
+  "train_data_path": "tests/fixtures/aclarc-train.jsonl",
+  "validation_data_path": "tests/fixtures/aclarc-train.jsonl",
+  "model": {
+    "data_format": "aclarc_flat_jsonlines",
+    "type": "scaffold_bilstm_attention_classifier",
+    "text_field_embedder": {
+      "tokens": {
+        "type": "embedding",
+        "embedding_dim": 100,
+        "trainable": true
+      }
+    },
+      "citation_text_encoder": {
+      "type": "gru",
+      "bidirectional": true,
+      "input_size": 100,
+      "hidden_size": 50,
+      "num_layers": 1
+    },
+    "classifier_feedforward": {
+      "input_dim": 100,
+      "num_layers": 2,
+      "hidden_dims": [20, 3],
+      "activations": ["linear", "linear"],
+      "dropout": [0.0, 0.0]
+    },
+    "classifier_feedforward_2": {
+      "input_dim": 100,
+      "num_layers": 2,
+      "hidden_dims": [20, 5],
+      "activations": ["linear", "linear"],
+      "dropout": [0.0, 0.0]
+    },
+    "classifier_feedforward_3": {
+      "input_dim": 100,
+      "num_layers": 2,
+      "hidden_dims": [20, 2],
+      "activations": ["linear", "linear"],
+      "dropout": [0.0, 0.0]
+    }
+  },
+  "iterator": {
+    "type": "basic",
+    "batch_size": 2
+  },
+  "iterator_aux": {
+    "type": "basic",
+    "batch_size": 2
+  },
+  "iterator_aux2": {
+    "type": "basic",
+    "batch_size": 2
+  },
+  "trainer": {
+    "num_epochs": 1,
+    "grad_clipping": 5.0,
+    "patience": 10,
+    "validation_metric": "+average_F1", //"-loss",
+    "cuda_device": -1,
+    "optimizer": {
+      "type": "adadelta",
+      "rho": 0.95
+    }
+  }
+}
