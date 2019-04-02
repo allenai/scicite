@@ -84,8 +84,8 @@ Important options (you can specify them with environment variables) are:
   "test_data_path":  # path to test data,
   "train_data_path_aux": # path to the data for section title scaffold,
   "train_data_path_aux2": # path to the data for citation worthiness scaffold,
-  "mixing_ratio": # parameter \lambda_1 in the paper (sensitivity of loss to the first scaffold)
-  "mixing_ratio2": # parameter \lambda_2 in the paper (sensitivity of loss to the second scaffold)
+  "mixing_ratio": # parameter \lambda_2 in the paper (sensitivity of loss to the first scaffold)
+  "mixing_ratio2": # parameter \lambda_3 in the paper (sensitivity of loss to the second scaffold)
 ``` 
 
 After downloading the data, edit the configuration file with the correct paths.
