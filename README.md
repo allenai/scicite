@@ -17,7 +17,7 @@ Example entry:
 
 ```
 {
- 'context': 'In chacma baboons, male-infant relationships can be linked to both
+ 'string': 'In chacma baboons, male-infant relationships can be linked to both
     formation of friendships and paternity success [30,31].'
  'sectionName': 'Introduction',
  'label': 'background',
