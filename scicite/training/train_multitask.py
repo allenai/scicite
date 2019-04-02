@@ -54,8 +54,8 @@ from allennlp.models.archival import archive_model, CONFIG_NAME
 from allennlp.models.model import Model, _DEFAULT_WEIGHTS
 from allennlp.training.trainer import Trainer
 
-from scicite.allennlp_modules.multitask_trainer import MultiTaskTrainer
-from scicite.allennlp_modules.vocabulary_multitask import VocabularyMultitask
+from scicite.training.multitask_trainer import MultiTaskTrainer
+from scicite.training.vocabulary_multitask import VocabularyMultitask
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 

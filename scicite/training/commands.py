@@ -16,8 +16,8 @@ from allennlp.commands.test_install import TestInstall
 from allennlp.commands.train import Train
 from allennlp.common.util import import_submodules
 
-from scicite.allennlp_modules.train_multitask import TrainMultiTask
-from scicite.allennlp_modules.train_multitask_two_tasks import TrainMultiTask2
+from scicite.training.train_multitask import TrainMultiTask
+from scicite.training.train_multitask_two_tasks import TrainMultiTask2
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
