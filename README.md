@@ -6,17 +6,31 @@ For details on the model and data refer to our NAACL 2019 paper:
 
 ## Data
 
-We introduce `SciCite` a new large dataset of citation intents.
-You can download the data from:  
-  
-* __[`SciCite`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/scicite/scicite.tar.gz)__
+We introduce `SciCite` a new large dataset of citation intents. Download from the following link:
 
-We also run experiments on the ACL-ARC Citations dataset introduced by [Jurgens et al., (2018)](https://transacl.org/ojs/index.php/tacl/article/view/1266).
-The preprocessed dataset is available at:
+[`scicite.tar.gz (22.1 MB)`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/scicite/scicite.tar.gz)  
 
-* __[`ACL-ARC`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/acl-arc/acl-arc.tar.gz)__
 
-The format of the datasets are identical and in Jsonlines format (each line is a json object).
+The data is in the Jsonlines format (each line is a json object).   
+The main citation intent label for each Json object is spacified with the `label` key while the citation context is specified in with a `context` key.
+Example entry:
+
+```
+{
+ 'context': 'In chacma baboons, male-infant relationships can be linked to both
+    formation of friendships and paternity success [30,31].'
+ 'sectionName': 'Introduction',
+ 'label': 'background',
+ 'citingPaperId': '7a6b2d4b405439',
+ 'citedPaperId': '9d1abadc55b5e0',
+ ...
+ }
+```
+
+You may obtain the full information about the paper using the provided paper ids with the [Semantic Scholar API](https://api.semanticscholar.org/).
+
+We also run experiments on a pre-existing dataset of citation intents in the computational linguistics domain (ACL-ARC) introduced by [Jurgens et al., (2018)](https://transacl.org/ojs/index.php/tacl/article/view/1266).
+The preprocessed dataset is available at [`ACL-ARC data`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/acl-arc/acl-arc.tar.gz).
 
 ## Setup
 
@@ -47,6 +61,8 @@ Where
 * `[path-to-data.jsonl]` contains the data in the same format as the training data.
 * `[path-to-model.tar.gz]` is the path to the pretrained model
 * `--output-file [out-path.jsonl]` is an optional argument showing the path to the output. If you don't pass this, the output will be printed in the stdout.
+
+You need to convert your data to be according to the training data.
 
 #### Pretrained models
 
