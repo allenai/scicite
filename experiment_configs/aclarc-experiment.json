@@ -1,7 +1,12 @@
+local stringToBool(s) =
+  if s == "true" then true
+  else if s == "false" then false
+  else error "invalid boolean: " + std.manifestJson(s);
+
 local DIM =
-  if std.extVar("elmo")) then
+  if stringToBool(std.extVar("elmo")) then
     1124
-  else:
+  else
     100;
 {
   "random_seed": std.extVar("SEED"),

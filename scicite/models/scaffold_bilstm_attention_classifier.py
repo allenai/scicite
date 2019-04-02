@@ -185,8 +185,9 @@ class ScaffoldBilstmAttentionClassifier(Model):
         argmax_indices = np.argmax(predictions, axis=-1)
         labels = [self.vocab.get_token_from_index(x, namespace="labels")
                  for x in argmax_indices]
-        output_dict['class_probs'] = class_probabilities
+        output_dict['probabilities'] = class_probabilities
         output_dict['positive_labels'] = labels
+        output_dict['prediction'] = labels
         citation_text = []
         for batch_text in output_dict['citation_text']:
             citation_text.append([self.vocab.get_token_from_index(token_id.item()) for token_id in batch_text])

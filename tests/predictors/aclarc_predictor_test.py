@@ -14,7 +14,7 @@ from allennlp.service.predictors import Predictor
 import sys
 sys.path.append(str(Path('.').absolute()))
 
-from scicite.allennlp_modules.train_multitask_two_tasks import train_model_from_file
+from scicite.training.train_multitask_two_tasks import train_model_from_file
 from scicite.constants import root_path
 
 sys.path.append(root_path)

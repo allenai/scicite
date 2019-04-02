@@ -51,18 +51,19 @@ Use pip to install dependencies in your desired python environment
 Download one of the pre-trained models and run the following command:
 
 ```bash
-allennlp predict [path-to-data.jsonl] [path-to-model.tar.gz] \
---predictor predictor_aclarc \
+allennlp predict [path-to-model.tar.gz] [path-to-data.jsonl] \
+--predictor [predictor-type] \
 --include-package scicite \
---output-file [out-path.jsonl]
+--overrides "{'model':{'data_format':''}}"
 ```
 
 Where 
 * `[path-to-data.jsonl]` contains the data in the same format as the training data.
 * `[path-to-model.tar.gz]` is the path to the pretrained model
+* `[predictor-type]` is one of `predictor_scicite` (for the SciCite dataset format) or `predictor_aclarc` (for the ACL-ARC dataset format).
 * `--output-file [out-path.jsonl]` is an optional argument showing the path to the output. If you don't pass this, the output will be printed in the stdout.
 
-You need to convert your data to be according to the training data.
+If you are using your own data, you need to first convert your data to be according to the SciCite data format.
 
 #### Pretrained models
 
@@ -106,7 +107,7 @@ Where the model output and logs will be stored in `[path-to-serialization-dir/]`
 
 ## Citing
 
-If you found our dataset, or code useful, please cite our NAACL 2019 paper:
+If you found our dataset, or code useful, please cite [Structural Scaffolds for Citation Intent Classification in Scientific Publications](https://arxiv.org).
 
 ```
 @InProceedings{Cohan2019Structural,

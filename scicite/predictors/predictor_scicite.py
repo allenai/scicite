@@ -40,23 +40,15 @@ class PredictorSciCite(Predictor):
                 citation_excerpt_index=citation.citation_excerpt_index
             )
             outputs = self._model.forward_on_instance(instance)
-            predictions = {}
 
-            label_to_index = {v: k for k, v in outputs['all_labels'].items()}
-            for i, prob in enumerate(outputs['class_probs']):
-                predictions[outputs['all_labels'][i]] = prob
-
-            label = max(predictions.items(), key=operator.itemgetter(1))[0]
+            return_dict['citingPaperId'] = outputs.get('citing_paper_id')
+            return_dict['citedPaperId'] = outputs.get('cited_paper_id')
             return_dict['citation_id'] = citation.citation_id
-            return_dict['citingPaperId'] = outputs['citing_paper_id']
-            return_dict['citedPaperId'] = outputs['cited_paper_id']
-            return_dict['citation_id'] = citation.citation_id
-            return_dict['probabilities'] = predictions
-            return_dict['prediction'] = label
+            return_dict['probabilities'] = outputs.get('probabilities')
+            return_dict['prediction'] = outputs['prediction']
             return_dict['original_label'] = citation.intent
-            return_dict['citation_text'] = outputs['citation_text']
-            return_dict['original_citation_text'] = citation.text
-            return_dict['attention_dist'] = outputs['attn_dist']
+            return_dict['citation_text'] = outputs.get('citation_text')
+            return_dict['attention_dist'] = outputs.get('attn_dist')
         return return_dict
 
     @overrides
@@ -65,7 +57,7 @@ class PredictorSciCite(Predictor):
         If you don't want your outputs in JSON-lines format
         you can override this function to output them differently.
         """
-        keys = ['citedPaperId', 'citingPaperId', 'excerptCitationIntents']
+        keys = ['citedPaperId', 'citingPaperId', 'excerptCitationIntents', 'prediction']
         for k in outputs.copy():
             if k not in keys:
                 outputs.pop(k)
