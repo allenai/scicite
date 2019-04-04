@@ -2,7 +2,7 @@
 
 This repository contains datasets and code for classifying citation intents in academic papers.  
 For details on the model and data refer to our NAACL 2019 paper:
-["Structural Scaffolds for Citation Intent Classification in Scientific Publications"](https://arxiv.org/).
+["Structural Scaffolds for Citation Intent Classification in Scientific Publications"](https://arxiv.org/pdf/1904.01608.pdf).
 
 ## Data
 
@@ -107,12 +107,12 @@ Where the model output and logs will be stored in `[path-to-serialization-dir/]`
 
 ## Citing
 
-If you found our dataset, or code useful, please cite [Structural Scaffolds for Citation Intent Classification in Scientific Publications](https://arxiv.org).
+If you found our dataset, or code useful, please cite [Structural Scaffolds for Citation Intent Classification in Scientific Publications](https://arxiv.org/pdf/1904.01608.pdf).
 
 ```
 @InProceedings{Cohan2019Structural,
   author={Arman Cohan and Waleed Ammar and Madeleine Van Zuylen and Field Cady},
-  title={{Structural Scaffolds for Citation Intent Classification in Scientific Publications}},
+  title={Structural Scaffolds for Citation Intent Classification in Scientific Publications},
   booktitle="NAACL",
   year="2019"
 }
