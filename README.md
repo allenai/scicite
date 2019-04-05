@@ -1,5 +1,9 @@
 # <p align=center>`SciCite`</p> 
 
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/structural-scaffolds-for-citation-intent/citation-intent-classification-acl-arc)](https://paperswithcode.com/sota/citation-intent-classification-acl-arc?p=structural-scaffolds-for-citation-intent)
+	
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/structural-scaffolds-for-citation-intent/sentence-classification-acl-arc)](https://paperswithcode.com/sota/sentence-classification-acl-arc?p=structural-scaffolds-for-citation-intent)
+
 This repository contains datasets and code for classifying citation intents in academic papers.  
 For details on the model and data refer to our NAACL 2019 paper:
 ["Structural Scaffolds for Citation Intent Classification in Scientific Publications"](https://arxiv.org/pdf/1904.01608.pdf).
