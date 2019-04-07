@@ -32,7 +32,7 @@ Example entry:
 You may obtain the full information about the paper using the provided paper ids with the [Semantic Scholar API](https://api.semanticscholar.org/).
 
 We also run experiments on a pre-existing dataset of citation intents in the computational linguistics domain (ACL-ARC) introduced by [Jurgens et al., (2018)](https://transacl.org/ojs/index.php/tacl/article/view/1266).
-The preprocessed dataset is available at [`ACL-ARC data`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/acl-arc/acl-arc.tar.gz).
+The preprocessed dataset is available at [`ACL-ARC data`](https://s3-us-west-2.amazonaws.com/ai2-s2-research/scicite/acl-arc.tar.gz).
 
 ## Setup
 
