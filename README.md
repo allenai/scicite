@@ -44,9 +44,6 @@ Use pip to install dependencies in your desired python environment
 
 `pip install -r requirements.in -c constraints.txt`
 
-#### Setup an environment using the provided conda scrip
-
-`./setup_env.sh`
 
 ## Running a pre-trained model on your own data
 
