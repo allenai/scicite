@@ -97,7 +97,7 @@ Note that with elmo training speed will be significantly slower.
 After making sure you have the correct configuration file, start training the model.
 
 ```
-python scicite/run_model.py train_multitask_2 [path-to-config-file.json] \
+python scripts/train_local.py train_multitask_2 [path-to-config-file.json] \
 -s [path-to-serialization-dir/] 
 --include-package scicite
 ```
