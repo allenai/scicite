@@ -60,7 +60,7 @@ local DIM =
       },
       "elmo": {
         "type": "elmo_token_embedder",
-        "options_file": elmo/elmo_2x4096_512_2048cnn_2xhighway_options.json",
+        "options_file": "elmo/elmo_2x4096_512_2048cnn_2xhighway_options.json",
         "weight_file": "elmo/elmo_2x4096_512_2048cnn_2xhighway_weights_PubMed_only.hdf5",
         "do_layer_norm": true,
         "dropout": 0.5
