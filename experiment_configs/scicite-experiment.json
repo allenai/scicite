@@ -5,9 +5,9 @@ local stringToBool(s) =
 
 local DIM =
   if stringToBool(std.extVar("elmo")) then
-    1224
+    1124
   else
-    200;
+    100;
 {
   "random_seed": std.extVar("SEED"),
   "pytorch_seed": std.extVar("PYTORCH_SEED"),
@@ -46,7 +46,7 @@ local DIM =
     "text_field_embedder": {
       "tokens": {
         "type": "embedding",
-        "pretrained_file": std.extVar("pretrained_file"),
+        "pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz",
         "embedding_dim": 100,
         "trainable": false
       }
@@ -60,14 +60,14 @@ local DIM =
       },
       "elmo": {
         "type": "elmo_token_embedder",
-        "options_file": "elmo/elmo_2x4096_512_2048cnn_2xhighway_options.json",
-        "weight_file": "elmo/elmo_2x4096_512_2048cnn_2xhighway_weights_PubMed_only.hdf5",
+        "options_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json",
+        "weight_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5",
         "do_layer_norm": true,
         "dropout": 0.5
       }
     },
       "lexicon_embedder": {
-        "pretrained_file": std.extVar("pretrained_file"),
+        "pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz",
         "embedding_dim": 100,
         "trainable": false,
         "vocab_namespace": "lexicon_ids"
@@ -122,8 +122,8 @@ local DIM =
     "num_epochs": 10,
     "grad_clipping": 5.0,
     "patience": 4,
-    "validation_metric": "+average_F1", //"-loss",
-    "cuda_device": 1,
+    "validation_metric": "+average_F1",
+    "cuda_device": 0,
     "optimizer": {
       "type": "adadelta",
       "rho": 0.95
